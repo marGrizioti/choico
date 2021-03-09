@@ -1,4 +1,4 @@
-# choico ChoiCo (Choices with Consequences) Project
+# ChoiCo (Choices with Consequences) Project
 ChoiCo (Choices with Consequences) is based on an e-slate microworld conceived by high school students at an ETL seminar led by Dr. N. Giannoutsou at Psychico College Athens in 2000. It was subsequently elaborated by Prof. C. Kynigos for the issue of sustainability in collaboration with Prof. M.Daskolia at the Environmental Education Lab. 
 It was designed and developed in its currect interdisciplinary form as a game modding tool by Prof. Chronis Kynigos and Dr Marianthi Grizioti, co-funded by the FP7 M C 2 project (No 610467) and the General Secretariat for Research and Technology (GSRT)/Hellenic Foundation for Research and Innovation (HFRI) PhD Scholarship (Code: 531). The project keeps developing and expanding with new functionalities, added by C. Kynigos and Grizioti M. (currently recieving funding from the Erasmus+ project T-CREPE).
-The current project uses the open-source javascript liraries: Blockly.js and Leaflet.js.
+The current project uses the open-source javascript libraries: Blockly.js and Leaflet.js.
