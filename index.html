@@ -1,0 +1,572 @@
+<!--
+    This file is part of "ChoiCo" a web application for designing digital games, written by Marianthi Grizioti for the National and Kapodistrian University of Athens (Educational Technology Lab).
+    Copyright (C) 2017-2018.
+    ChoiCo is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ChoiCo is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>ChoiCo - Choices with Consequences - Beta Version</title>
+
+<link rel="stylesheet" href="js-libraries/Leaflet.label-master/dist/leaflet.label.css" />
+<link rel="stylesheet" href="css/map.css?v=1.0.12"/>
+<link rel="stylesheet" href="css/designMode.css?v=1.0.12" />
+<link rel="stylesheet" href="css/playMode.css?v=1.0.18" />
+<link rel="stylesheet" href="css/infoTable.css?v=1.0.22" />
+<link rel="stylesheet" href="css/scoreTable.css?v=1.0.11" />
+ <link rel="stylesheet" href="js-libraries/jquery-ui-1.11.4.custom/jquery-ui.css" type="text/css" charset="utf-8">
+ <link rel="stylesheet" href="js-libraries/jQuery-TE_v.1.4.0/jquery-te-1.4.0.css">
+<link rel="stylesheet" href="js-libraries/mediaelement/build/mediaelementplayer.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+
+
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+  integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+  crossorigin=""></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgvJdhvtSMSlhrQeL2DG-Zh4aDqPZ6dZc" async defer></script>
+<script src="js-libraries/jquery-1.11.3/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="js-libraries/jquery-ui-1.12.1.custom/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+<script  src="js-libraries/jQuery-TE_v.1.4.0/jquery-te-1.4.0.min.js"></script>
+
+<script src="js-libraries/Stuk-jszip-4cbaf0e/dist/jszip.min.js" type="text/javascript" charset="utf-8"></script>
+ <script src="js-libraries/google-blockly-7faafe0/blockly_compressed.js"></script>
+ <script src="js-libraries/google-blockly-7faafe0/blocks_compressed.js"></script>
+  <script src="js-libraries/google-blockly-7faafe0/msg/js/en.js"></script>
+  <script src="js-libraries/google-blockly-7faafe0/javascript_compressed.js"></script>
+  <script src="js-libraries/google-blockly-7faafe0/python_compressed.js"></script>
+  <script src="js-libraries/NeilFraser-JS-Interpreter-162ef40/acorn_interpreter.js"></script>
+  <script src="js-libraries/mediaelement/build/mediaelement-and-player.min.js"></script>
+  <script src="js-libraries/Leaflet.GridLayer.GoogleMutant/Leaflet.GoogleMutant.js"></script>
+  <script src="js-libraries/Leaflet.label-master/src/Label.js"></script>
+	<script src="js-libraries/Leaflet.label-master/src/BaseMarkerMethods.js"></script>
+	<script src="js-libraries/Leaflet.label-master/src/Marker.Label.js"></script>
+	<script src="js-libraries/Leaflet.label-master/src/CircleMarker.Label.js"></script>
+	<script src="js-libraries/Leaflet.label-master/src/Path.Label.js"></script>
+	<script src="js-libraries/Leaflet.label-master/src/Map.Label.js"></script>
+	<script src="js-libraries/Leaflet.label-master/src/FeatureGroup.Label.js"></script>
+	<script src="js-libraries/moment/moment.js"></script>
+	<script src="js-libraries/jszip-utils-master/dist/jszip-utils.js"></script>
+	<script type="text/javascript" src="core/styles.js?v=1.0.8"></script>
+	<script type="text/javascript" src="core/loaders.js?v=1.0.9"></script>
+	<script type="text/javascript" src="core/initialSettings.js?v=1.0.12"></script>
+	<script type="text/javascript" src="core/languages.js?v=1.0.16"></script>
+	<script type="text/javascript" src="core/codingWorkspace.js?v=1.0.10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"  crossorigin="anonymous"></script>
+<script src="js-libraries/jsPDF-master/LiberationSerif-Regular-normal.js"></script>
+
+</head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-69014871-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-69014871-2');
+</script>
+
+<body >
+  <div id = "header" class = "header">
+		<div id = "static_infos">
+	     <input id="language"  type = "image" src = "media/imgs/greek.png"  style="visibility:vissible"   title="Change Language">
+			 <div class = "simpleDropdown">
+	     <input id="help" type = "image" src = "media/imgs/help.png" style="visibility:visible" >
+			 <div id="myDropdown" class="simpleDropdown-content">
+		   <a  href="http://etl.ppp.uoa.gr/choico/manuals/choico_user_manual_EN.pdf" target="_blank" id="manual">User Manual</a>
+		    <a  href="blocksEn.html" target="_blank" id="manual">Blocks Library</a>
+		     <a href="http://tinyurl.com/choicosupport" target="_blank" id="contact">Contact Us</a>
+				 <a href="info/updates.html" target="_blank" id="updates">What's new</a>
+		     <a href="info/info.html" target="_blank" id="information">About ChoiCo</a>
+				 <a href="info/index_DS_II.html" target="_blank" id="dSchoolInfo" style="visibility:hidden">Σχετικά με το μαθησιακό αντικείμενο</a>
+		   </div>
+			 </div>
+	 </div>
+    <span  id="introT" class="introText"> Welcome to ChoiCo </span>
+     <input id="home" class="buttonIcons"  type = "image" src = "media/imgs/home.png"  style="visibility:hidden; margin-left:8%;" title="Back to homepage">
+   <input id="back" class="buttonIcons" type = "image" src = "media/imgs/Edit.png" onclick="myGame.backToEdit();" style="visibility:hidden" title="Edit Game">
+   <input id="again" class="buttonIcons" type = "image" src = "media/imgs/replay.png" onclick="myGame.playAgain();" style="visibility:hidden" title="Play Again">
+
+   <img  id="logButton" class="buttonIcons"  src ="media/imgs/log.png" title="your game progress" ></img>
+   <img  id="gameInfos"class="buttonIcons"  onclick="myGame.togglePlayInstructions()" src ="media/imgs/instructions.png" title ="game instructions" ></img>
+   <input id="play" class="buttonIcons" type = "image" src = "media/imgs/play.png"  style="visibility:hidden" title="Play Game">
+   <input id="save" class="buttonIcons" type = "image" src = "media/imgs/save.png" style="visibility:hidden" title="Save Game">
+
+
+  <p class ="introSubText" id= "introST">A kit for designing and playing digital games </p>
+
+
+</div>
+<div id="container">
+  <img id="designMode" onclick="newDesignMode();" class="introButton" src="media/imgs/design.png" > </img>
+  <img id="playMode" onclick="playIntroStyle();" class="introButton" src="media/imgs/playgame.png" > </img>
+	<!-- Game progress modal-->
+<div id="myModal" class="modal">
+	<div class="modal-content">
+	  <div class="modal-header">
+	    <span class="close">&times;</span>
+	    <h2>Game Progress</h2>
+	  </div>
+	  <div class="modal-body">
+	    <p><span> <b> Current Game Values </b> </span></p>
+			<div id ="current-score" class ="modal-score"> </div>
+				<hr>
+	    <p> <span><b>  Choices History</b>  </span></p>
+			<div id="messageArea" class ="modal-textarea"> </div>
+	  </div>
+	  <div class="modal-footer">
+	    <h3>	<button id="downloadScore" class="modal_button"><i class="fa fa-download"></i> Download Score</button></h3>
+	  </div>
+	</div>
+	</div>
+<!-- game ends modal -->
+<div id="gameEnds" class="modal">
+	<div class="modal-content">
+	  <div class="modal-header orange">
+	    <span class="close">&times;</span>
+	    <h2>The game has ended!</h2>
+	  </div>
+	  <div class="modal-body" id="endGameMessage">
+			<p>It seems that the game has ended </p>
+	  </div>
+	  <div class="modal-footer orange">
+	    <h3>	<p> <b> What would you like to do?</p> <br>
+				<button  class="modal_button buttonOrange"  onclick="myGame.playAgain();"><i class="fa fa-refresh"></i> Play Again</button>
+				<button  class="modal_button buttonOrange" onclick="myGame.backToEdit();"><i class="fa fa-wrench"></i> Edit Game</button>
+				<button id="show_score" class="modal_button buttonOrange"><i class="fa fa-bar-chart"></i> Show score and statistics</button>
+			</h3>
+	  </div>
+	</div>
+	</div>
+<div id = "playModeIntro"  class = "playModeIntro"  >
+
+<div id="openFile">
+<input type="file" id="loadGame"  />
+</div>
+<div id="examples">
+
+<img src="media/imgs/examples_eng.png" onclick ="showExamplesTable()" style ="cursor:pointer;">
+<table id="examplesTable">
+<tbody>
+
+	<tr id="eatingOutGame" >
+		<td><p> Eating Out </p></td>
+		<td> <p> <img src="media\imgs\examples_icons\eatingOut.png"> </p></td>
+		<td> <p id="eatingText"> A game about healthy food choices </p></td>
+		<td></td>
+	</tr>
+	<tr id="chefGame">
+		<td><p> CT Chef </p></td>
+		<td> <p> <img src="media\imgs\examples_icons\ctchef.png"> </p></td>
+		<td> <p id="chefText"> A half-baked game about Computational Thinking and business managment </p></td>
+		<td></td>
+	</tr>
+	<tr id ="perfectVilleGame" ">
+	  <td><p > Perfect Ville</p></td>
+	  <td> <p> <img src="media\imgs\examples_icons\perfect.png"> </p></td>
+	  <td> <p id="perfectVilleText"> Παιχνίδι για τις επιλογές ενός πολίτη στην πόλη του </p></td>
+	  <td></td>
+	</tr>
+	<tr id ="envyCityGame">
+	  <td><p> Envy City </p></td>
+	  <td> <p> <img src="media\imgs\examples_icons\envy.png"> </p></td>
+	  <td> <p id="envyText"> Παιχνίδι για την αιεοφρεία  </p></td>
+	  <td></td>
+	</tr>
+<tr id="shoppingGame" >
+  <td><p> Shopping in the supermarket</p></td>
+  <td> <p> <img src="media\imgs\examples_icons\supermarket2.png"> </p></td>
+  <td> <p id="supermarketText"> A game for mathematical relations</p></td>
+  <td></td>
+</tr>
+<tr id ="sustTextiles" onclick ="myGame.openInstance('sustTextiles', 1)">
+	<td><p> Sustainable Textiles </p></td>
+	<td> <p> <img src="media\imgs\examples_icons\sustTextiles.png"> </p></td>
+	<td> <p id=""> A game for sustainability in e-textiles industry </p></td>
+	<td></td>
+</tr>
+<tr id ="smartJacket" onclick ="myGame.openInstance('smartJacket', 1)">
+	<td><p> Smart Jacket </p></td>
+	<td> <p> <img src="media\imgs\examples_icons\smartJacket.png"> </p></td>
+	<td> <p id=""> A game for the everyday use of a smart textile </p></td>
+	<td></td>
+</tr>
+<tr id = "ancientGreek" onclick ="myGame.openInstance('ancient', 1)">
+  <td><p> Become MP</p></td>
+  <td> <p> <img src="media\imgs\examples_icons\ancient.png"> </p></td>
+  <td> <p id="mpText"> Παιχνίδι γα τα αρχαία ελληνικά  </p></td>
+  <td></td>
+</tr>
+<tr id="nayplioGame"  onclick ="myGame.openInstance('nayplio', 1)">
+  <td><p> Πάμε Ναύπλιο </p></td>
+  <td> <p> <img src="media\imgs\examples_icons\default.png"> </p></td>
+  <td> <p id="escapeGameText"> Παιχνίδι για τον Επιχειρηματολογικό Λόγο (Toulmin Argument)  </p></td>
+  <td></td>
+</tr>
+<tr id="escapePlan"  onclick ="myGame.openInstance('escapePlan', 1)">
+  <td><p> Escape Plan </p></td>
+  <td> <p> <img src="media\imgs\examples_icons\default.png"> </p></td>
+  <td> <p id="escapeGameText"> Παιχνίδι για τον Επιχειρηματολογικό Λόγο   </p></td>
+  <td></td>
+</tr>
+
+<tr id="badi" onclick ="myGame.openInstance('badi', 1)">
+  <td><p > Ba-Di(Balance Diet)</p></td>
+  <td> <p> <img src="media\imgs\examples_icons\badi.png"> </p></td>
+  <td> <p id="badiText"> Παιχνίδι για την ισορροπημένη διατροφή </p></td>
+  <td></td>
+</tr>
+
+<!--<tr id="pc" onclick ="myGame.openInstance('pc', 1)">
+  <td><p>PC Architect</p></td>
+  <td> <p> <img src="media\imgs\examples_icons\pc.png"> </p></td>
+  <td> <p id="pcText"> Παιχνίδι αρχιτεκτονικής υπολογιστών </p></td>
+  <td></td>
+</tr>-->
+<tr  id="composte" onclick ="myGame.openInstance('composte', 1)">
+  <td><p>Composte</p></td>
+  <td> <p> <img src="media\imgs\examples_icons\default.png"> </p></td>
+  <td> <p id="composteText"> Παιχνίδι χημείας και περιβαλλοντικής εκπαίδευσης </p></td>
+  <td></td>
+</tr>
+<tr id="ethics" onclick ="myGame.openInstance('ethics', 1)">
+  <td><p> The Employee </p></td>
+  <td> <p> <img src="media\imgs\examples_icons\default.png"> </p></td>
+  <td> <p id="ethicsText"> Παιχνίδι γα την επαγγελματική ηθική </p></td>
+  <td></td>
+</tr>
+<tr id="eatingOutHBGame">
+	<td><p> Eating Out *Half-baked* </p></td>
+	<td> <p> <img src="media\imgs\examples_icons\eatingOut.png"> </p></td>
+	<td> <p id="eatingTextHB"> A *half-baked* game about healthy food choices </p></td>
+	<td></td>
+</tr>
+<tr id="school" onclick ="myGame.openInstance('school', 1)">
+  <td><p> School Survival</p></td>
+  <td> <p> <img src="media\imgs\examples_icons\default.png"> </p></td>
+  <td> <p id="schoolText"> A mod of the game 'Eating Out', created by students </p></td>
+  <td></td>
+</tr>
+<tr id="europe" onclick ="myGame.openInstance('europe', 1)">
+  <td><p> Travelling in Europe </p></td>
+  <td> <p> <img src="media\imgs\examples_icons\default.png"> </p></td>
+  <td> <p id="europeText"> A mod of the game 'Eating Out', created by students </p></td>
+  <td></td>
+</tr>
+
+ </tbody>
+</table>
+</div>
+</div>
+<div id="map"></div>
+<div id = "designBoard" >
+
+	<div id = "b-tab-nav"> </div>
+	 <a href="#" class="b-tab-nav_link is-active">   <span id="tab1" >Game Interface</span></a>
+    <a href="#" class="b-tab-nav_link"><span id="tab2">Initial settings</span></a>
+    <a href="#" class="b-tab-nav_link"><span id="tab3">Gameplay rules</span></a>
+	<a href="#" class="b-tab-nav_link"><span id="tab4">End rules</span></a>
+	<div class="b-tab is-active">
+	<div class="b-content">
+
+	<div id="sidebar">
+	<ul>
+		<li>
+		<div id="upload">
+		<input style ="cursor: pointer;" type="file" title = "Change Background Image" id="uploadImage"/>
+		</div>
+		</li>
+  <li>
+    <!--  <input id="googleMapsButton" type = "image" src="media/imgs/googlemap.png" title = "Use google maps" onclick = "myGame.useGoogleMaps()"/>
+-->
+<input id="layersButton" type = "image" src="media/imgs/layers.png" title = "Map Layers Settings" onclick = "myGame.openLayersSettings()"/>
+    </li>
+		<li>
+			<input id="addPointIcon" type = "image" src="media/imgs/addPoint.png" title = "Add point" onclick = "myGame.addPoints(this)"/>
+		</li>
+		<li>
+			<input id="addInstructions" type = "image" src="media/imgs/instructions.png" title = "Add game instructions" onclick = "myGame.addInstructions()"/>
+		</li>
+	</ul>
+	 </div>
+	<div id="designInstructions"	>
+  <div class = "popUpHeader"> Game Instructions <img id="close" src="media/imgs/close.png"> </img> </div>
+		<textarea id="instructionsEditor">  </textarea>
+	</div>
+
+	 	<div id= "data" class = "data_table">
+		 <div id="data_bar" class= "data_bar">
+		 <input type="image" src="media/imgs/delete.png"  onclick="myGame.deleteField()" id="deleteIco" title="Delete selected attribute"/>
+		 <input type="image" src="media/imgs/settings.png"  onclick="myGame.settingsField()" id="settingsIco" title="Settings of selected attribute"/>
+		 <input type="image" src="media/imgs/add.png" width="20px" height="20px" style="float:right" onclick="myGame.addField()" id = "addAttribute" title="Add attribute"/>
+		 </div>
+
+		 <div id = "tableContainer" >
+		 <div id= "headerContainer" >
+			<table id="datatableHeader" class="datatable">
+				<thead>
+				<tr>
+					<th>ID
+              <br>
+              <input type="image" id="id_sort" src="media/imgs/sort_des.png"  title="sort column"/>
+          </th>
+
+					<th><input type="text" class="tableField" value="Description"/>
+            <input type="image" id="d_sort" src="media/imgs/sort_des.png"  title="sort column"/>
+					</th>
+					<th>  <input type="text" class="tableField" value="Field1" onchange = "myGame.updateField(this);"/>
+              <input type = "checkbox" id = "1_check" onclick ="myGame.selectField (this)"/>
+              <input type="image" id="1_sort" src="media/imgs/sort_des.png"  title="sort column"/>
+                <span>
+              <input type="image" src="media/imgs/left.png" onclick = "moveColumnLeft(this.closest('th'))" title="move to the left" style="visibility:hidden"/>
+            <input type="image" src="media/imgs/right.png" onclick = "moveColumnRight(this.closest('th'))"title="move to the right" />
+          </span>
+          </th>
+					<th> <input type="text" class="tableField" value="Field2" onchange = "myGame.updateField(this);"/>
+            <input type = "checkbox" id = "2_check"onclick ="myGame.selectField (this)"/>
+              <input type="image" id="2_sort"  src="media/imgs/sort_des.png"  title="sort column"/>
+              <span>
+            <input type="image" src="media/imgs/left.png" onclick = "moveColumnLeft(this.closest('th'))" title="move to the left"/>
+            <input type="image" src="media/imgs/right.png" onclick = "moveColumnRight(this.closest('th'))"title="move to the right" />
+          </span>
+          </th>
+				</tr>
+			</thead>
+			</table>
+			</div>
+
+		<div id="bodyContainer" >
+			<table id="datatable" class="datatable">
+			<tbody>
+			</tbody>
+			</table>
+		</div>
+		</div>
+	  </div>
+
+
+	  </div>
+
+	</div>
+	<div class="b-tab">
+		<div class="b-content">			<!-- second tab-->
+		<div id="editor1" class = "editor" align = "left">
+
+
+
+		 <div id="blocklyDiv" style="position:absolute;"></div>
+
+     <div id="otherProgramming3" align = "right" class="otherProgramming"> <input type="image" src = "media/imgs/js.png" onclick = "showJavascript(myGame.workspace1)" > </input>
+        <input type="image" src = "media/imgs/python.png" onclick = "showPython(myGame.workspace1)"> </input>
+     </div>
+  </div>
+</div>
+	</div>
+	<div class="b-tab">
+		<div class="b-content">			<!-- third tab-->
+		<div id="editor2" class = "editor">
+
+
+
+		 <div id="blocklyDiv2" style="position:absolute;"></div>
+
+
+  </div>
+
+		</div>
+    <div id="otherProgramming" align = "right" class="otherProgramming"> <input type="image" src = "media/imgs/js.png" onclick = "showJavascript(myGame.workspace2)" > </input>
+       <input type="image" src = "media/imgs/python.png" onclick = "showJavascript(myGame.workspace2)" > </input>
+       </div>
+	</div>
+	<div class="b-tab">
+		<div class="b-content">  	<!-- fourth tab-->
+			<div id="editor3" class="editor">
+
+			 <div id="blocklyDiv3" style=" position:absolute; display:block;"></div>
+
+			</div>
+		<!--	<div id="otherSettings">
+		<div id = "settingsA"> <input type="checkbox" id="pointsLimitCheckBox"name="pointsLimitCheckBox" value="Yes" onclick = "myGame.pointsLimitToggle(this);">  <span id="pointsLimit" > Max No of Turns: </span><input id="maxPoints" type="number" name="quantity" min="1" value="10" style="width: 50px;" disabled>  </div>
+		<br></br>
+	<!--	<div id = "settingsB"> <input type="checkbox" id="timeLimit"  name="timeLimit" value="Yes" onclick = "myGame.timeLimitToggle(this);"> Time limit: <input id="maxTime" type="number" name="quantity" min="3"  style="width: 50px;" value="10" disabled> Minutes
+		</div>
+		</div> -->
+    <div id="otherProgramming2" align = "right" class="otherProgramming"> <input type="image" src = "media/imgs/js.png" onclick = "showJavascript(myGame.workspace3)" > </input>
+       <input type="image" src = "media/imgs/python.png" onclick = "showPython(myGame.workspace3)"> </input>
+    </div>
+		</div>
+	</div>
+<div id= "mapLayersSettings" class= "mapLayersSettings">
+    <input type="image" src = "media/imgs/close.png" onclick="myGame.hideLayersSettings()" align ="right">
+    <br>
+    <h4>Layers:</h4>
+  <select name ="layersList" id="layersList" class = "layersSelect" size="5" onchange ="showLayerOptions()"> </select>
+  <span  width="180px"> <button  id="remove"  style="visibility:hidden" onclick = "removeMapLayer()"> DELETE LAYER </button>
+  <button id="rename"  style="visibility:hidden" onclick = "openRenameDialogue()"> RENAME LAYER </button>
+</span>
+  <h4>New Layer:</h4><input type="file" id="addLayer"  text="Add Image Layer"> </input>
+  <br><br>
+</div>
+</div>
+<div id = "playBoard">
+	<div id="gameInstructions" class="modal">
+		<div class="modal-content">
+		  <div class="modal-header">
+		    <span class="close"></span>
+		    <h2>Game Instructions </h2>
+		  </div>
+		  <div class="modal-body" id="instructions">
+		  </div>
+		  <div class="modal-footer">
+		    <h3>	<button onclick="myGame.togglePlayInstructions();" class="modal_button"> Let's Play! </button></h3>
+		  </div>
+		</div>
+		</div>
+
+
+<div id="rightSide" class = "rightSide">
+<!--<div id="dataDisplay" class = "dataDisplay">-->
+<span id= "pointInfo">  <p> Point Information  </p> </span>
+<img id="pointImage"> </img>
+<table id = "displayTable"  class = "displayTable"/>
+<thead>
+<tr>
+<!--<th colspan="2" id="pointInfo"></th>-->
+
+</tr>
+</thead>
+<tbody>
+</tbody>
+<tfoot>
+  <tr>
+  <td colspan="2">
+    <button type="button" id="select" class="selectButton"onclick= "myGame.selectPoint()"/> Select Point </button>
+</td>
+ </tr>
+
+</tfoot>
+</table>
+
+
+ <!--</div> -->
+
+</div>
+<div class = "scoreDiv" >
+<span id="score"> <p id="valuesText">Game Values</p></span>
+<table id = "overallTable" />
+<tr id="fieldsNames">
+
+</tr>
+<tr id="fieldsValues">
+
+</tr>
+</table>
+</div>
+
+<div id ="popUp"  class="popUp">
+
+	<div id= "popUp_text"   >
+	</div>
+<div>
+	<button type = "button" id ="popUp_button" class = "popUp_button" onclick = "myGame.closePopUp();" /> OK </button>
+</div>
+
+</div>
+<div id = "videoPlayerWindow" class="videopopup" align = "right">
+  <input type="image" src = "media/imgs/close.png" onclick="closeVideo()" >
+  <video id = "videoPlayer" width="420" height="315"  preload="none" controls ><source id ="videSource" type="video/x-youtube" src="" />
+</video>
+</div>
+</div>
+<div id = "fS" class="fieldSettings" >
+
+<div id="bar" class = "bar"> <input type="image" src="media/imgs/close.png"  onclick="myGame.closeSettings()" title="close" style="float: right"/>
+ </div>
+ <span> <span id="typeLabel">Attribute type: </span><select onchange ="myGame.changeType(this.value)" id="selectBox">
+  <option value="text" onclick="hideFormulaOptions ();">text</option>
+  <option value="number" onclick="hideFormulaOptions ();">number</option>
+<option value="formula" onclick="showFormulaOptions ();">formula</option>
+  <option value="url" onclick="hideFormulaOptions ();">url</option>
+  <option value="date" onclick="hideFormulaOptions ();">date</option>
+  <option value="file" onclick="hideFormulaOptions ();">image</option>
+</select>  </span>
+
+ <span> <br> </br><span id="visibilityLabel" >Visibilty to player: </span> <select onchange ="myGame.changeVisibility(this.value)" id="visibilityBox">
+  <option value="visible">visible</option>
+  <option value="hidden">hidden</option>
+</select></span>
+</div>
+<div id="pointSettings" class = "mapLayersSettings" style="visibility : hidden; margin-top:10%;">
+Settings of Object: <span id="pointName"> </span> <br><br>
+
+<!--Belongs in group: <select id = "pointGroupList" onchange ="" id="visibilityBox">
+ <option value="none" selected >none</option>
+ <option value="new" onselect= "" ></option>
+</select>-->
+<!--icon: <img id="iconThumb" src="media/imgs/marker.png" width="30px" height="30px"> </img>
+	<input style ="cursor: pointer;" type="file" title = "Change Icon" id="uploadIcon" />-->
+<br>
+Appear on Layer: <select  id="pointLayerList" class="layersSelect" size = "3">
+
+</select>
+<br>
+This object will NOT affect the score: <input type="checkbox" id="dummy"> </input><br><br>
+<button onclick ="myGame.savePointSettings ()"> OK </button>
+</div>
+<div id="rclick" class = "rClickBox" > <span style="cursor : pointer" onclick = "myGame.myMap.deletePoint(selectedPoint.target._leaflet_id)" >
+<input type="image" src="media/imgs/delete.png" id="deletePoint" style="float: left"/>Delete point </span> <br> <br>
+<span style="cursor : pointer" onclick = "myGame.pointSettings()" >
+<input type="image" src="media/imgs/settings.png" id="deletePoint" style="float: left"/>Settings</span>
+</div>
+<p class="footer" id="footerText">
+    <img src ="info/images/gnu.png" width="80px" height="30px"> </img> ChoiCo Copyright (C) 2017-2018.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or any later version.
+    See the <a href = "https://www.gnu.org/licenses/gpl.html" target="blank"> GNU General Public License </a> for more details.
+
+</p>
+
+</div>
+
+
+   <script src="core/playMode.js?v=1.0.22"></script>
+   <script src="core/map.js?v=1.0.24"></script>
+     <script src="core/designMode.js?v=1.0.18"></script>
+     <script src="core/datatable.js?v=1.0.20"></script>
+   <script src="core/blocks.js?v=1.0.12"></script>
+   <script src="core/createXmls.js?v=1.0.9"></script>
+	<script type="text/javascript" src="core/languageToggle.js?v=1.0.17"></script>
+  <script src="core/initialize.js?v=1.0.16"></script>
+  <script src="core/handleFiles.js?v=1.0.18"></script>
+<script src="core/tabs.js?v=1.0.10"></script>
+	<script type="text/javascript" src="core/version.js?v=1.0.21"></script>
+<script>
+ myTabs = tabs({
+    el: '#designBoard',
+    tabNavigationLinks: '.b-tab-nav_link',
+    tabContentContainers: '.b-tab'
+  });
+  myTabs.init();
+</script>
+<script> launchData = null;</script>
+
+
+</body>
+
+</html>
