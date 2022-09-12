@@ -446,8 +446,8 @@ newGame.prototype.selectPoint = function() {				//What happens when player selec
 		}
 		if (this.fields[i].type == "number"){
 
-			test = 	Math.round((parseFloat(myPoint.values[name])+Number.EPSILON)*100)/100
-		this.variables[counter].value +=  test
+		test = 	parseFloat(myPoint.values[name]) + this.variables[counter].value;
+		this.variables[counter].value = Math.round(( test +Number.EPSILON)*100)/100
 		}
 		var newValue = Math.round((parseFloat(this.variables[counter].value )+Number.EPSILON)*100)/100
 		cells2[counter].textContent = newValue;

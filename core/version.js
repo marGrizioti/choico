@@ -15,6 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 */
-version = '1.0.19';
-date = '19/11/2020'
+version = '1.0.24';
+date = '28/9/2021'
 	document.getElementById("footerText").innerHTML +=" ChoiCo Version: Beta, " + version + " Last update: " + date;

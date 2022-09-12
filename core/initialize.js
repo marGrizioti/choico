@@ -28,8 +28,16 @@ var gameOverScorebtn = document.getElementById("show_score");
 var playBtn = document.getElementById("play");
 var saveBtn = document.getElementById("save");
 var homeBtn = document.getElementById("home");
+var examples = document.getElementById("examples");
+  examples.onclick = function () {
+      window.onbeforeunload = null;
+  }
 homeBtn.onclick=  function () {
-  introStyle();
+  //introStyle();
+  window.onbeforeunload = null;
+  	if(confirm (homeMessage)){
+    window.location = "http://etl.ppp.uoa.gr/choico/";
+  }
 }
 playBtn.onclick = function () {
   myGame.generatePlay();

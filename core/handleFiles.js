@@ -265,38 +265,61 @@ function handleFile(f) {
 
 
 newGame.prototype.downloadScore = function(){
-var currentScore = document.getElementById ("current-score").textContent;
-var history = document.getElementById ("messageArea").textContent;
-var doc = new jsPDF("landscape")
-var d = new Date();
-var datetime = "Last Sync: " + d.getDate() + "/"
-                +(d.getMonth()+1)  + "/"
-                + d.getFullYear() + " @ "
-                + d.getHours() + ":"
-                + d.getMinutes() + ":"
-                + d.getSeconds();
-doc.setFont('LiberationSerif-Regular');
-doc.setFontSize(22);
-doc.setTextColor (255, 153, 51)
-message = "ChoiCo Game"
-doc.text(20, 20,message);
-doc.setFontSize(12);
-doc.setTextColor (0, 0, 0)
-message=  "Your Progress on " + datetime;
-doc.text(20, 30, message);
-doc.setLineWidth(1);
-doc.line(20, 40, 220, 40);
-doc.setFontSize(14);
-message = "Your score: " + currentScore
-message = doc.splitTextToSize(message, 180)
-doc.text(20, 60, message);
-message = "Times you played the game (so far): " + myGame.playTimes;
-doc.text(20, 90, message,);
-message = "Choices history (reversed oreder): "
-doc.text(20, 100, message);
-message = history
-message = doc.splitTextToSize(message, 260)
-doc.text(20, 110, message);
+  var currentScore = document.getElementById ("current-score").textContent;
+  var gamelogHTML = document.getElementById ("messageArea").innerHTML.split("<b>");
+  var doc = new jsPDF('p', 'pt', 'a4');
+  var maxHeight = 840;
+  var d = new Date();
+  var line;
+  pageCounter =0;
+  var datetime = "Last Sync: " + d.getDate() + "/"
+                  +(d.getMonth()+1)  + "/"
+                  + d.getFullYear() + " @ "
+                  + d.getHours() + ":"
+                  + d.getMinutes() + ":"
+                  + d.getSeconds();
+
+  doc.setFont('LiberationSerif-Regular');
+  doc.setFontSize(22);
+  doc.setTextColor (255, 153, 51)
+  message = "ChoiCo Game"
+  doc.text(20, 20,message);
+  doc.setFontSize(12);
+  doc.setTextColor (0, 0, 0)
+  message=  "Your Progress on " + datetime;
+  doc.text(20, 35, message);
+  doc.setLineWidth(1);
+  doc.line(20, 45, 220, 45);
+  doc.setFontSize(11);
+  message = "Your final score: " + currentScore
+  message = doc.splitTextToSize(message, 550)
+  doc.text(20, 60, message);
+  //message = "Times you played the game (so far): " + myGame.playTimes;
+  //doc.text(20, 80, message,);
+  message = "Choices history (reversed oreder): "
+  doc.text(20, 100, message);
+  line = 115;
+  for (var i=1; i<gamelogHTML.length; i++){
+    var choiceLog = gamelogHTML[i].split("<br>");
+    for (var j=0; j<choiceLog.length; j++){
+
+      message = choiceLog[j].replace("</b>", " ");
+    message =  message.replace("</hr>", " ");
+    message =  message.replace("<hr>", " ");
+    message =  message.replace("-", " ");
+    if(message!=""){
+    message = doc.splitTextToSize(message, 550)
+    doc.text( message, 20, line);
+    line = line+ 15*message.length;
+     if (line >=maxHeight){
+      doc.addPage();
+      line = 10;
+    }
+
+  }
+
+  }
+  }
 doc.save('ChoiCo_game_score.pdf');
 }
 newGame.prototype.saveGame = function(){
@@ -385,7 +408,7 @@ newGame.prototype.saveBlob = function () {
 .then(function (blob) {
 	  link = document.createElement('a');
 	  var fileName = prompt("Filename", "");
-	  link.download = fileName+".zip";
+	  link.download = fileName+".choico";
 
 		// Firefox requires the link to be added to the DOM
 		// before it can be clicked.

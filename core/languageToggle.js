@@ -79,6 +79,7 @@ generalErrorMessage = language.generalErrorMessage;
  $("#eatingTextHB").html(language.eatingTextHB)
  $("#chefText").html(language.chefText)
  $("#envyText").html(language.envyText)
+ $("#covidText").html(language.covidText)
  $("#perfectVilleText").html(language.perfectVilleText)
  $("#perfectVilleGame").attr("onclick", language.perfectVilleGame);
 $("#shoppingGame").attr("onclick", language.shoppingGame);
@@ -86,6 +87,7 @@ $("#shoppingGame").attr("onclick", language.shoppingGame);
    $("#eatingOutGame").attr("onclick",language.eatingOutGame);
    $("#eatingOutHBGame").attr("onclick",language.eatingOutHBGame);
    $("#envyCityGame").attr("onclick",language.envyGame);
+   $("#covidGame").attr("onclick",language.covidGame);
  if (language.name === "English") {
 $("#nayplioGame").hide()	 																				//hide games that are only availiable in Greek
 $("#ancientGreek").hide()
@@ -96,7 +98,8 @@ $("#smartJacket").show()
 $("#sustTextiles").show()
 $("#school").show()
 $("#europe").show()
-$("#escapePlan").hide()	 
+$("#escapePlan").hide()
+
  }
  if (language.name === "Greek") {
 $("#nayplioGame").show()	 																				//show games that are only availiable in Greek
@@ -110,6 +113,7 @@ $("#smartJacket").hide()
 $("#sustTextiles").hide()
 $("#school").hide()
 $("#europe").hide()
+
  }
 
 
