@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="js-libraries/Leaflet.label-master/dist/leaflet.label.css" />
 <link rel="stylesheet" href="css/map.css?v=1.0.12"/>
 <link rel="stylesheet" href="css/designMode.css?v=1.0.12" />
-<link rel="stylesheet" href="css/playMode.css?v=1.0.18" />
+<link rel="stylesheet" href="css/playMode.css?v=1.1.0" />
 <link rel="stylesheet" href="css/infoTable.css?v=1.0.22" />
 <link rel="stylesheet" href="css/scoreTable.css?v=1.0.11" />
  <link rel="stylesheet" href="js-libraries/jquery-ui-1.11.4.custom/jquery-ui.css" type="text/css" charset="utf-8">
@@ -65,7 +65,7 @@
 	<script type="text/javascript" src="core/styles.js?v=1.0.8"></script>
 	<script type="text/javascript" src="core/loaders.js?v=1.0.9"></script>
 	<script type="text/javascript" src="core/initialSettings.js?v=1.0.12"></script>
-	<script type="text/javascript" src="core/languages.js?v=1.0.16"></script>
+	<script type="text/javascript" src="core/languages.js?v=1.0.17"></script>
 	<script type="text/javascript" src="core/codingWorkspace.js?v=1.0.10"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"  crossorigin="anonymous"></script>
 <script src="js-libraries/jsPDF-master/LiberationSerif-Regular-normal.js"></script>
@@ -164,7 +164,7 @@
 <table id="examplesTable">
 <tbody>
 
-	<tr id="eatingOutGame" >
+	<tr id="eatingOutGame"  >
 		<td><p> Eating Out </p></td>
 		<td> <p> <img src="media\imgs\examples_icons\eatingOut.png"> </p></td>
 		<td> <p id="eatingText"> A game about healthy food choices </p></td>
@@ -174,6 +174,12 @@
 		<td><p> CT Chef </p></td>
 		<td> <p> <img src="media\imgs\examples_icons\ctchef.png"> </p></td>
 		<td> <p id="chefText"> A half-baked game about Computational Thinking and business managment </p></td>
+		<td></td>
+	</tr>
+	<tr id="covidGame" onclick="location.href += '?covidgame';"">
+		<td><p> Covid Survival </p></td>
+		<td> <p> <img src="media\imgs\examples_icons\covid.png"> </p></td>
+		<td> <p id="covidText"> A game about Covid-19 Pandemic </p></td>
 		<td></td>
 	</tr>
 	<tr id ="perfectVilleGame" ">
@@ -545,17 +551,17 @@ This object will NOT affect the score: <input type="checkbox" id="dummy"> </inpu
 </div>
 
 
-   <script src="core/playMode.js?v=1.0.22"></script>
+   <script src="core/playMode.js?v=1.1.0"></script>
    <script src="core/map.js?v=1.0.24"></script>
      <script src="core/designMode.js?v=1.0.18"></script>
      <script src="core/datatable.js?v=1.0.20"></script>
    <script src="core/blocks.js?v=1.0.12"></script>
    <script src="core/createXmls.js?v=1.0.9"></script>
-	<script type="text/javascript" src="core/languageToggle.js?v=1.0.17"></script>
-  <script src="core/initialize.js?v=1.0.16"></script>
-  <script src="core/handleFiles.js?v=1.0.18"></script>
+	<script type="text/javascript" src="core/languageToggle.js?v=1.0.18"></script>
+  <script src="core/initialize.js?v=1.0.17"></script>
+  <script src="core/handleFiles.js?v=1.1.1"></script>
 <script src="core/tabs.js?v=1.0.10"></script>
-	<script type="text/javascript" src="core/version.js?v=1.0.21"></script>
+	<script type="text/javascript" src="core/version.js?v=1.0.22"></script>
 <script>
  myTabs = tabs({
     el: '#designBoard',
