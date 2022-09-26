@@ -1,0 +1,6 @@
+Click on the points to see their properties <br></br>
+Select a point by clicking "Select Point" button<br></br>
+Every time you select a point check your "Overall Values" to see its effects <br></br>
+Pay attention to the messages that will appear on the screen<br></br>
+
+Have Fun! 
